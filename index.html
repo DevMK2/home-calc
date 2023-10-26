@@ -8,12 +8,18 @@
 
 <body>
   <div class="main">
-    <span> 보증금</span>
-    <input type="text" name="aBoz" id="aBoz">
-    <span> 월세</span>
-    <input type="text" name="aMonth" id="aMonth">
-    <span> 예상관리비</span>
-    <input type="text" name="aManage" id="aManage" value="20">
+    <div>
+      <span> 보증금</span>
+      <input type="text" name="aBoz" id="aBoz">
+    </div>
+    <div>
+      <span> 월세</span>
+      <input type="text" name="aMonth" id="aMonth">
+    </div>
+    <div>
+      <span> 예상관리비</span>
+      <input type="text" name="aManage" id="aManage" value="20">
+    </div>
   </div>
 
   <div class="result">
@@ -99,20 +105,20 @@
     const aManage = Number(document.querySelector('#aManage').value) // 예상관리비
 
     // 보증금 대출 
-    const rBozAmountLtv = (aBoz*xLtv/100)
-    const rBozAmount = rBozAmountLtv>xMax? xMax : rBozAmountLtv
+    const rBozAmountLtv = (aBoz * xLtv / 100)
+    const rBozAmount = rBozAmountLtv > xMax ? xMax : rBozAmountLtv
     // 보증금 대출이자 
-    const rBozRate = rBozAmount*xRate/100/12
+    const rBozRate = rBozAmount * xRate / 100 / 12
     // 순보증금 
-    const rBozNetAmount = aBoz-rBozAmount
+    const rBozNetAmount = aBoz - rBozAmount
     // 순보증금 기회비용 
-    const rExpectedIncome = rBozNetAmount*eIncome/100/12
+    const rExpectedIncome = rBozNetAmount * eIncome / 100 / 12
     // 월관
-    const result1 = aMonth+aManage
+    const result1 = aMonth + aManage
     // 월관이
-    const result2 = result1+rBozRate
+    const result2 = result1 + rBozRate
     // 월관이기
-    const result3 = result2+rExpectedIncome
+    const result3 = result2 + rExpectedIncome
 
     document.querySelector('.result3').innerText = result3.toFixed(2)
     document.querySelector('.result2').innerText = result2.toFixed(2)

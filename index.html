@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="main">
+    <span> 보증금</span>
+    <input type="text" name="aBoz" id="aBoz">
+    <span> 월세</span>
+    <input type="text" name="aMonth" id="aMonth">
+    <span> 예상관리비</span>
+    <input type="text" name="aManage" id="aManage" value="20">
+  </div>
+
+  <div class="result">
+    <ul>
+      <li>
+        <span>월관이기: </span>
+        <span class="result3"></span>
+      </li>
+      <li>
+        <span>월관이: </span>
+        <span class="result2"></span>
+      </li>
+      <li>
+        <span>월관: </span>
+        <span class="result1"></span>
+      </li>
+      <li>
+        <span>보증금 대출 : </span>
+        <span class="rBozAmount"></span>
+      </li>
+      <li>
+        <span>보증금 대출이자 : </span>
+        <span class="rBozRate"></span>
+      </li>
+      <li>
+        <span>순보증금 : </span>
+        <span class="rBozNetAmount"></span>
+      </li>
+      <li>
+        <span>순보증금 기회비용 : </span>
+        <span class="rExpectedIncome"></span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="properties">
+    <div> properties </div>
+    <ul>
+      <li>
+        <span>전세대출 이자율 : </span>
+        <input type="text" name="xRate" id="xRate" value="5.5">
+        <span>% </span>
+      </li>
+      <li>
+        <span>전세대출 비례한도 : </span>
+        <input type="text" name="xLtv" id="xLtv" value="80">
+        <span>% </span>
+      </li>
+      <li>
+        <span>전세대출 한도 : </span>
+        <input type="text" name="xMax" id="xMax" value="45000">
+        <span>만원 </span>
+      </li>
+      <li>
+        <span>전세대출 지원한도 : </span>
+        <input type="text" name="hMax" id="hMax" value="10000">
+        <span>만원 </span>
+      </li>
+      <li>
+        <span>전세대출 지원이자율 : </span>
+        <input type="text" name="hRate" id="hRate" value="1.5">
+        <span>% </span>
+      </li>
+      <li>
+        <span>기대금융수익 : </span>
+        <input type="text" name="eIncome" id="eIncome" value="10">
+        <span>% </span>
+      </li>
+    </ul>
+  </div>
+</body>
+
+<script>
+  const step = () => {
+    const xRate = Number(document.querySelector('#xRate').value) // 전세대출 이자율
+    const xLtv = Number(document.querySelector('#xLtv').value) // 전세대출 비례한도
+    const xMax = Number(document.querySelector('#xMax').value) // 전세대출 한도
+    const hMax = Number(document.querySelector('#hMax').value) // 전세대출 지원한도
+    const hRate = Number(document.querySelector('#hRate').value) // 전세대출 지원이자율
+    const eIncome = Number(document.querySelector('#eIncome').value) // 기대금융수익
+    const aBoz = Number(document.querySelector('#aBoz').value) // 보증금
+    const aMonth = Number(document.querySelector('#aMonth').value) // 월세
+    const aManage = Number(document.querySelector('#aManage').value) // 예상관리비
+
+    // 보증금 대출 
+    const rBozAmountLtv = (aBoz*xLtv/100)
+    const rBozAmount = rBozAmountLtv>xMax? xMax : rBozAmountLtv
+    // 보증금 대출이자 
+    const rBozRate = rBozAmount*xRate/100/12
+    // 순보증금 
+    const rBozNetAmount = aBoz-rBozAmount
+    // 순보증금 기회비용 
+    const rExpectedIncome = rBozNetAmount*eIncome/100/12
+    // 월관
+    const result1 = aMonth+aManage
+    // 월관이
+    const result2 = result1+rBozRate
+    // 월관이기
+    const result3 = result2+rExpectedIncome
+
+    document.querySelector('.result3').innerText = result3.toFixed(2)
+    document.querySelector('.result2').innerText = result2.toFixed(2)
+    document.querySelector('.result1').innerText = result1.toFixed(2)
+    document.querySelector('.rBozAmount').innerText = rBozAmount.toFixed(2)
+    document.querySelector('.rBozRate').innerText = rBozRate.toFixed(2)
+    document.querySelector('.rBozNetAmount').innerText = rBozNetAmount.toFixed(2)
+    document.querySelector('.rExpectedIncome').innerText = rExpectedIncome.toFixed(2)
+  }
+  setInterval(step, 500)
+</script>
+
+</html>
